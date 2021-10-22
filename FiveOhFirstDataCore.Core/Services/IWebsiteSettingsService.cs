@@ -7,6 +7,7 @@ using FiveOhFirstDataCore.Core.Structures.Policy;
 
 using System.Collections.Concurrent;
 using System.Security.Claims;
+using FiveOhFirstDataCore.Data.Structures.Discord;
 
 namespace FiveOhFirstDataCore.Data.Services
 {
@@ -88,6 +89,12 @@ namespace FiveOhFirstDataCore.Data.Services
         /// <param name="key">The <see cref="Enum"/> value of a rank.</param>
         /// <returns>A <see cref="Task"/> that returns a <see cref="DiscordRoleDetails"/> for the requested rank.</returns>
         public Task<DiscordRoleDetails?> GetDiscordRoleDetailsAsync(Enum key);
+        /// <summary>
+        /// Get the Discord role details for a rank.
+        /// </summary>
+        /// <param name="qualifiedKey">The <see cref="string"/> value of a rank.</param>
+        /// <returns>A <see cref="Task"/> that returns a <see cref="DiscordRoleDetails"/> for the requested rank.</returns>
+        public Task<DiscordRoleDetails?> GetDiscordRoleDetailsAsync(string qualifiedKey);
         /// <summary>
         /// Override current C-Shop claim settings with the inputed data.
         /// </summary>
@@ -191,5 +198,20 @@ namespace FiveOhFirstDataCore.Data.Services
         /// <returns>A task that returns a <see cref="ResultBase"/> for this action.</returns>
         public Task<ResultBase> DeletePolicySectionAsync(PolicySection section);
         #endregion
+
+        #region Discord Bindings
+        public Task<ResultBase> AddOrUpdateDiscordBindingsAsync(DiscordRoleDetails roleDetails);
+        public Task<ResultBase> AddOrUpdateCShopRoleBindingAsync(CShopRoleBindingData data);
+        public Task<List<DiscordRoleDetails>> GetAllDiscordBindingsAsync();
+        public Task<List<CShopRoleBindingData>> GetAllCShopRoleBindingDataAsync();
+        public Task<ResultBase> DeleteDiscordBindingAsync(DiscordRoleDetails roleDetails);
+        public Task<ResultBase> DeleteCShopRoleBindingDataAsync(CShopRoleBindingData data);
+        public Task<CShopRoleBindingData> GetCShopRoleBindingAsync(Guid key);
+        public Task<CShop?> ValidateCShopRoleBindClusterAsync(CShop cluster);
+        public Task<Guid?> ValidateCShopRoleBindDepartmentAsync(string department, CShop forCluster);
+        #endregion
+
+        public Task<DiscordPostActionConfiguration?> GetDiscordPostActionConfigurationAsync(DiscordAction action);
+        public Task<ResultBase> UpdateDiscordPostActionConfigurationAsync(DiscordAction action, ulong channelId, string message);
     }
 }

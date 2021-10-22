@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using FiveOhFirstDataCore.Data.Structuresbase;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace FiveOhFirstDataCore.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211011152610_Release-Soyvolon-Version-Zero-Fifteen-Zero")]
+    partial class ReleaseSoyvolonVersionZeroFifteenZero
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -588,23 +590,7 @@ namespace FiveOhFirstDataCore.Data.Migrations
                     b.ToTable("CShopRoleData");
                 });
 
-            modelBuilder.Entity("FiveOhFirstDataCore.Data.Structures.Discord.DiscordPostActionConfiguration", b =>
-                {
-                    b.Property<int>("Action")
-                        .HasColumnType("integer");
-
-                    b.Property<decimal>("DiscordChannel")
-                        .HasColumnType("numeric(20,0)");
-
-                    b.Property<string>("RawMessage")
-                        .HasColumnType("text");
-
-                    b.HasKey("Action");
-
-                    b.ToTable("PostActions");
-                });
-
-            modelBuilder.Entity("FiveOhFirstDataCore.Data.Structures.Discord.DiscordRoleDetails", b =>
+            modelBuilder.Entity("FiveOhFirstDataCore.Data.Structures.DiscordRoleDetails", b =>
                 {
                     b.Property<string>("Key")
                         .HasColumnType("text");

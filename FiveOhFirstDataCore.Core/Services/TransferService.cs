@@ -69,7 +69,7 @@ public class TransferService : ITransferService
             actual.Signees.Add(signee);
 
         if (IsTransferRequestComplete(actual))
-        {
+    {
             actual.Completed = true;
             actual.Approved = true;
 

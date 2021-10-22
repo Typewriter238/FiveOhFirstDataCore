@@ -18,13 +18,15 @@ namespace FiveOhFirstDataCore.Data.Services
         private readonly IDbContextFactory<ApplicationDbContext> _dbContextFactory;
         private readonly UserManager<Trooper> _userManager;
         private readonly IWebsiteSettingsService _webSettings;
+        private readonly IDiscordService _discord;
 
         public PromotionService(IDbContextFactory<ApplicationDbContext> dbContextFactory, UserManager<Trooper> userManager,
-            IWebsiteSettingsService webSettings)
+            IWebsiteSettingsService webSettings, IDiscordService discord)
         {
             _dbContextFactory = dbContextFactory;
             _userManager = userManager;
             _webSettings = webSettings;
+            _discord = discord;
         }
 
         public async Task<ResultBase> CancelPromotionAsync(Promotion promotion, Trooper denier)
@@ -163,6 +165,9 @@ namespace FiveOhFirstDataCore.Data.Services
 
             await _dbContext.SaveChangesAsync();
 
+            if(ulong.TryParse(actual.PromotionFor.DiscordId, out var did))
+                await _discord.UpdateRankChangeAsync(log, did, actual.PromotionFor.Id);
+
             return new(true, null);
         }
 
@@ -228,5 +233,16 @@ namespace FiveOhFirstDataCore.Data.Services
             => await StartPromotionProcessAsync(invoker, promotion.PromotionFor,
                 promotion.CurrentBoard, promotion.PromoteFrom, promotion.PromoteTo,
                 promotion.Reason, promotion.Forced);
+
+        public async Task<ResultBase> UpdatePromotionAsync(Promotion promotion, string reason)
+        {
+            using var _dbContext = _dbContextFactory.CreateDbContext();
+            var actual = await _dbContext.Promotions.FindAsync(promotion.Id);
+            if (string.IsNullOrEmpty(reason)) return new(false, new() { "Reason String Null or Empty." });
+            if (actual is null) return new(false, new() { "Promotion was not found in the database." });
+            actual.Reason = reason;
+            var entriesModified = await _dbContext.SaveChangesAsync();
+            if (entriesModified > 0) { return new(true); } else{ return new(false, new() { "SaveChangesAsync returned 0 entries modified." }); }
+        }
     }
 }

@@ -27,6 +27,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using FiveOhFirstDataCore.Data.Structures.Discord;
 
 namespace FiveOhFirstDataCore
 {
@@ -274,6 +275,7 @@ namespace FiveOhFirstDataCore
                 .AddScoped<INotificationService, NotificationService>()
                 .AddScoped<IMessageService, MessageService>()
                 .AddScoped<IAlertService, AlertService>()
+                .AddScoped<IUploadService, UploadService>()
                 .AddSingleton<IWebsiteSettingsService, WebsiteSettingsService>()
                 .AddSingleton<IAdvancedRefreshService, AdvancedRefreshService>();
 
@@ -285,11 +287,12 @@ namespace FiveOhFirstDataCore
                 MessageCacheSize = 0
             })
                 .AddSingleton<DiscordRestClient>()
+                .AddSingleton<DiscordClient>()
                 .AddSingleton<DiscordBotConfiguration>(x => new()
                 {
                     HomeGuild = ulong.Parse(Secrets["Discord:HomeGuild"])
                 })
-                .AddScoped<IDiscordService, DiscordService>();
+                .AddSingleton<IDiscordService, DiscordService>();
             #endregion
 
             #region Account Tools
@@ -331,6 +334,9 @@ namespace FiveOhFirstDataCore
 
             var claims = scope.ServiceProvider.GetRequiredService<IWebsiteSettingsService>();
             claims.InitalizeAsync().GetAwaiter().GetResult();
+
+            var discord = scope.ServiceProvider.GetRequiredService<IDiscordService>();
+            discord.InitalizeAsync().GetAwaiter().GetResult();
 
             app.UseForwardedHeaders(new ForwardedHeadersOptions()
             {
