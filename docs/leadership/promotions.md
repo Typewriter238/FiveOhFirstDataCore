@@ -16,9 +16,9 @@
  
 ## Standard Promotion Requests
 
-Standard Promotion Requests are Promotions that are submitted from the Troopers already displayed on the `Troopers Eligable for Promotion` Section. These Troopers meet the requirements for promotion in the Data Core already. 
+Standard Promotion Requests are Promotions that are submitted from the Troopers already displayed on the `Troopers Eligible for Promotion` Section. These Troopers meet the requirements for promotion in the Data Core already. 
 
-> All members of Leadership should submit promotions through the `Troopers Eligable for Promotion` Section. The `Start Promotions Process` Button should only be used if you are certain the Trooper you are trying to promote does not appear, but you know they meet the requirements for promotion.
+> All members of Leadership should submit promotions through the `Troopers Eligible for Promotion` Section. The `Start Promotions Process` Button should only be used if you are certain the Trooper you are trying to promote does not appear, but you know they meet the requirements for promotion.
 
 ## Forced Promotion Requests
 
