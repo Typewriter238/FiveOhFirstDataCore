@@ -10,7 +10,7 @@
 3. The `Approve` Button will Approve the Troopers Promotion and do one of two things.
     - If the promotion requires approval from a higher command, then the promotion will move to the next promotion board.
     - If the promotion is already at the highest command needed, then the promotion will already be approved, and the promotion will auto populate.
-4. The `Deny` Button will Deny the Troopers Promotion. This will cancell the promotion request and no changes will be made.
+4. The `Deny` Button will Deny the Troopers Promotion. This will cancel the promotion request and no changes will be made.
 5. The `Raise for Promotion` Button will Raise this Trooper for Promotion. Clicking the Check Box will expand the Button to provide a reason for promotion.
 6. The expanded `Raise for Promotion` Button includes a text field to include a reason for promotion.
  
